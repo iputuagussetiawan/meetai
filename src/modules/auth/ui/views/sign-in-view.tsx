@@ -1,11 +1,12 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {FaGithub, FaGoogle} from "react-icons/fa"
 import {
   Form,
   FormControl,
@@ -20,7 +21,6 @@ import { OctagonAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { set } from "date-fns";
 
 const FormSchema = z.object({
   email: z.string().email(),
@@ -29,9 +29,8 @@ const FormSchema = z.object({
   }),
 });
 const SignInView = () => {
-
-  const router=useRouter();
-  const [error, setError] = useState(""); 
+  const router=useRouter()
+  const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -41,24 +40,46 @@ const SignInView = () => {
     },
   });
 
-  const  onSubmit = (data: z.infer<typeof FormSchema>) => {
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
     setError("");
-    setPending(true)
-    authClient.signIn.email({
-      email: data.email,
-      password: data.password
-    },{
-      onSuccess: () => {
-        router.push("/");
-        setPending(false)
+    setPending(true);
+    authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: '/',
       },
-      onError: (error) => {
-        setError(error.error.message);
-        setPending(false)
+      {
+        onSuccess: () => {
+          router.push('/');
+          setPending(false);
+        },
+        onError: (error) => {
+          setError(error.error.message);
+          setPending(false);
+        },
+      }
+    );
+  };
+  const onSocial = (provider: "google" | "github") => {
+    setError("");
+    setPending(true);
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: '/',
       },
-    });
-    
-  }
+      {
+        onSuccess: () => {
+          setPending(false);
+        },
+        onError: (error) => {
+          setPending(false);
+          setError(error.error.message);
+        },
+      }
+    );
+  };
   return (
     <div className="flex flex-col gap-6">
       <Card className="overflow-hidden p-0">
@@ -116,10 +137,7 @@ const SignInView = () => {
                     <AlertTitle>{error}</AlertTitle>
                   </Alert>
                 )}
-                <Button
-                  disabled={pending} 
-                  className="w-full" 
-                  type="submit">
+                <Button disabled={pending} className="w-full" type="submit">
                   Login
                 </Button>
                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -129,16 +147,22 @@ const SignInView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button 
+                  <Button
+                    onClick={() => onSocial("google")}
                     type="button"
-                    variant="outline" 
-                    className="w-full">
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <FaGoogle/>
                     Google
                   </Button>
-                  <Button 
+                  <Button
+                    onClick={() => onSocial("github")}
                     type="button"
-                    variant="outline" 
-                    className="w-full">
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <FaGithub/>
                     Github
                   </Button>
                 </div>
@@ -168,10 +192,8 @@ const SignInView = () => {
       </Card>
 
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue you agree to our 
-        <a href="#">Term of service</a> 
-        {" "}and {" "} 
-        <a href="">Privacy Policy</a>
+        By clicking continue you agree to our
+        <a href="#">Term of service</a> and <a href="">Privacy Policy</a>
       </div>
     </div>
   );
