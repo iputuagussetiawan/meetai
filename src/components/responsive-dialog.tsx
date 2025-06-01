@@ -1,5 +1,5 @@
 "use client";
-import React, { use } from "react";
+import React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Dialog,
@@ -7,19 +7,16 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Drawer,
-  DrawerClose,
+
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
-import { is } from "drizzle-orm";
+
 
 interface ResponsiveDialogProps {
   title: string;
