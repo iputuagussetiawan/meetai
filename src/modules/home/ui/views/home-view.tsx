@@ -1,12 +1,7 @@
-"use client"
-
+'use client';
 
 const HomeView = () => {
-  return (
-    <div>
-        hOME vIEW
-    </div>
-  )
-}
+    return <div>hOME vIEW</div>;
+};
 
-export default HomeView
+export default HomeView;
