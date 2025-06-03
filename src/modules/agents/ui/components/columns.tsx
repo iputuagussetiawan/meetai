@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { AgentGetOne } from "../../types";
 import GenerateAvatar from "@/components/generate-avatar";
-import { CornerDownRightIcon, CornerRightDown, VideoIcon } from "lucide-react";
+import { CornerDownRightIcon, VideoIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 // This type is used to define the shape of our data.
@@ -36,13 +36,13 @@ export const columns: ColumnDef<AgentGetOne>[] = [
   {
     accessorKey: "meetingCount",
     header: "Meetings",
-    cell: () => (
+    cell: ({row}) => (
       <Badge
         variant={"outline"}
         className="flex items-center gap-x-2 [&>svg]:size-4"
       >
         <VideoIcon className="text-blue-700" /> 
-        5 meetings
+        {row.original.meetingCount} {row.original.meetingCount === 1 ? "meeting" : "meetings"}
       </Badge>
     ),
   },
