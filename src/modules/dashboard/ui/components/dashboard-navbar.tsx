@@ -23,7 +23,7 @@ const DashboardNavbar = () => {
     return (
         <>
             <DashboardCommand open={commandOpen} setOpen={setCommandOpen} />
-            <nav className="bg-background flex items-center gap-x-2 border-b px-4 py-3">
+            <nav className="flex items-center gap-x-2 border-b bg-background px-4 py-3">
                 <Button
                     className="size-9 cursor-pointer"
                     variant={'outline'}
@@ -37,13 +37,13 @@ const DashboardNavbar = () => {
                 </Button>
                 <Button
                     onClick={() => setCommandOpen((open) => !open)}
-                    className="text-muted-foreground hover:text-muted-foreground h-9 w-[240px] cursor-pointer justify-start font-normal"
+                    className="h-9 w-[240px] cursor-pointer justify-start font-normal text-muted-foreground hover:text-muted-foreground"
                     size={'sm'}
                     variant={'outline'}
                 >
                     <SearchIcon className="size-4" />
                     Search...
-                    <kbd className="border-muted text-muted-foreground pointer-events-none ml-auto inline-flex h-5 gap-1 rounded border px-1.5 font-mono text-[10px] font-medium select-none">
+                    <kbd className="pointer-events-none ml-auto inline-flex h-5 gap-1 rounded border border-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground select-none">
                         <span className="text-xs">&#8984;</span>
                     </kbd>
                 </Button>

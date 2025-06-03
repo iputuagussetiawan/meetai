@@ -46,7 +46,7 @@ const DashboardUserButton = () => {
     if (isMobile) {
         return (
             <Drawer>
-                <DrawerTrigger className="border-border/10 flex w-full items-center justify-between gap-x-2 overflow-hidden rounded-lg border bg-white/5 p-3 hover:bg-white/10">
+                <DrawerTrigger className="flex w-full items-center justify-between gap-x-2 overflow-hidden rounded-lg border border-border/10 bg-white/5 p-3 hover:bg-white/10">
                     {data.user.image ? (
                         <Avatar>
                             <AvatarImage src={data.user.image} />
@@ -135,7 +135,7 @@ const DashboardUserButton = () => {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className="border-border/10 flex w-full items-center justify-between gap-x-2 overflow-hidden rounded-lg border bg-white/5 p-3 hover:bg-white/10">
+            <DropdownMenuTrigger className="flex w-full items-center justify-between gap-x-2 overflow-hidden rounded-lg border border-border/10 bg-white/5 p-3 hover:bg-white/10">
                 {data.user.image ? (
                     <Avatar>
                         <AvatarImage src={data.user.image} />
@@ -158,7 +158,7 @@ const DashboardUserButton = () => {
                 <DropdownMenuLabel>
                     <div className="flex flex-col gap-1">
                         <span className="truncate font-medium">{data.user.name}</span>
-                        <span className="text-muted-foreground truncate text-sm font-normal">
+                        <span className="truncate text-sm font-normal text-muted-foreground">
                             {data.user.email}
                         </span>
                     </div>

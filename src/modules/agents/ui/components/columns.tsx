@@ -24,8 +24,8 @@ export const columns: ColumnDef<AgentGetOne>[] = [
                     <span className="font-semibold capitalize">{row.original.name}</span>
                 </div>
                 <div className="flex items-center gap-x-2">
-                    <CornerDownRightIcon className="text-muted-foreground size-3" />
-                    <span className="text-muted-foreground max-w-[200px] truncate text-sm capitalize">
+                    <CornerDownRightIcon className="size-3 text-muted-foreground" />
+                    <span className="max-w-[200px] truncate text-sm text-muted-foreground capitalize">
                         {row.original.instructions}
                     </span>
                 </div>

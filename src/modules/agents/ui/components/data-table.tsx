@@ -22,7 +22,7 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <div className="bg-background overflow-hidden rounded-lg border">
+        <div className="overflow-hidden rounded-lg border bg-background">
             <Table>
                 <TableBody>
                     {table.getRowModel().rows?.length ? (
@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
                         <TableRow>
                             <TableCell
                                 colSpan={columns.length}
-                                className="text-muted-foreground h-19 text-center"
+                                className="h-19 text-center text-muted-foreground"
                             >
                                 No results.
                             </TableCell>
