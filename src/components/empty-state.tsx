@@ -1,26 +1,20 @@
-import { AlertCircleIcon } from "lucide-react";
-import Image from "next/image";
+import { AlertCircleIcon } from 'lucide-react';
+import Image from 'next/image';
 
 interface Props {
-  title: string;
-  description: string;
+    title: string;
+    description: string;
 }
 const EmptyState = ({ title, description }: Props) => {
-  return (
-    <div className="flex flex-col items-center justify-center">
-      <Image
-        src="/empty.svg"
-        alt="empty"
-        width={240}
-        height={240}
-        className="mb-4"
-      />
-      <div className="flex flex-col gap-y-6 max-w-md mx-auto text-center">
-        <h6 className="text-lg font-medium">{title}</h6>
-        <p className="text-sm text-muted-foreground">{description}</p>
-      </div>
-    </div>
-  );
+    return (
+        <div className="flex flex-col items-center justify-center">
+            <Image src="/empty.svg" alt="empty" width={240} height={240} className="mb-4" />
+            <div className="mx-auto flex max-w-md flex-col gap-y-6 text-center">
+                <h6 className="text-lg font-medium">{title}</h6>
+                <p className="text-muted-foreground text-sm">{description}</p>
+            </div>
+        </div>
+    );
 };
 
 export default EmptyState;
