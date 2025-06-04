@@ -8,7 +8,12 @@ import React from 'react';
 const MeetingView = () => {
 	const trpc = useTRPC();
 	const { data } = useSuspenseQuery(trpc.meetings.getMany.queryOptions({}));
-	return <div>{JSON.stringify(data)}</div>;
+	return (
+		<div className="overflow-x-scroll">
+			{/* {JSON.stringify(data)} */}
+			TODO - Meetings Data Table
+		</div>
+	);
 };
 
 export default MeetingView;
