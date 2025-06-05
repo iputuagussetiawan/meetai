@@ -5,7 +5,7 @@ import NewMeetingDialog from './new-meeting-dialog';
 import { useState } from 'react';
 import { MeetingsSearchFilter } from './meetings-search-filter';
 import StatusFilter from './status-filter';
-import AgentIdFilter from './agent-id-filter';
+import AgentIdFilter from './meeting-agent-id-filter';
 import { useMeetingsFilters } from '../../hooks/use-meetings-filter';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { DEFAULT_PAGE } from '@/constants';
@@ -15,7 +15,7 @@ const MeetingsListHeader = () => {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 	//if filters.search is exist or filters.status is exist or filters.agentId is exist
-	const isAnyFilterMofified = !!filters.search || !!filters.status || !!filters.agentId;
+	const isAnyFilterModified = !!filters.search || !!filters.status || !!filters.agentId;
 
 	const onClearFilters = () => {
 		setFilters({
@@ -41,7 +41,7 @@ const MeetingsListHeader = () => {
 						<MeetingsSearchFilter />
 						<StatusFilter />
 						<AgentIdFilter />
-						{isAnyFilterMofified && (
+						{isAnyFilterModified && (
 							<Button variant={'outline'} onClick={onClearFilters}>
 								<XCircleIcon className="size-4" />
 								Clear
