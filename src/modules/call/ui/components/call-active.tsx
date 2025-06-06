@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { CallControl, SpeakerLayout } from '@stream-io/video-react-sdk';
+import { CallControls, SpeakerLayout } from '@stream-io/video-react-sdk';
 interface Props {
 	meetingName: string;
 	onLeave: () => void;
@@ -23,7 +23,7 @@ const CallActive = ({ onLeave, meetingName }: Props) => {
 			</div>
 			<SpeakerLayout />
 			<div className="rounded-full bg-[#101213] px-4">
-				<CallControl onLeave={onLeave} />
+				<CallControls onLeave={onLeave} />
 			</div>
 		</div>
 	);
