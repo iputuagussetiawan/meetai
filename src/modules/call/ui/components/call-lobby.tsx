@@ -43,9 +43,9 @@ const AllowBrowserPermissions = () => {
 	return <p className="text-sm">Please grant access to your camera and microphone</p>;
 };
 const CallLobby = ({ onJoin }: Props) => {
-	const { useCamera, useMicrophone } = useCallStateHooks();
-	const { hasBrowserPermissions: hasMicPermissions } = useMicrophoneState();
-	const { hasBrowserPermissions: hasCameraPermissions } = useCameraState();
+	const { useCameraState, useMicrophoneState } = useCallStateHooks();
+	const { hasBrowserPermission: hasMicPermissions } = useMicrophoneState();
+	const { hasBrowserPermission: hasCameraPermissions } = useCameraState();
 
 	const hasBrowserMediaPermissions = hasMicPermissions && hasCameraPermissions;
 	return (
@@ -70,6 +70,21 @@ const CallLobby = ({ onJoin }: Props) => {
 					</div>
 
 					<div className="flex w-full justify-between gap-x-2">
+						{/* <Button asChild variant={'ghost'}>
+							<Link href={'/meetings'} onClick={onJoin}>
+								Cancel
+							</Link>
+						</Button> */}
+
+						<Button variant={'ghost'} asChild>
+							<Link href={'/meetings'}> Cancel</Link>
+						</Button>
+						<Button onClick={onJoin}>
+							<LogInIcon /> Join Call
+						</Button>
+					</div>
+
+					{/* <div className="flex w-full justify-between gap-x-2">
 						<Button asChild variant={'ghost'}>
 							<Link href={'/meetings'} onClick={onJoin}>
 								Cancel
@@ -78,7 +93,7 @@ const CallLobby = ({ onJoin }: Props) => {
 						<Button onClick={onJoin} asChild>
 							<LogInIcon /> Join Call
 						</Button>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
