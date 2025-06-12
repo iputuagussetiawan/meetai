@@ -2,11 +2,11 @@ import { and, eq, not } from 'drizzle-orm';
 import { NextRequest, NextResponse } from 'next/server';
 
 import {
-	CallEndedEvent,
-	MessageMewEvent,
-	CallTranscriptionReadyEvent,
+	// CallEndedEvent,
+	// MessageMewEvent,
+	// CallTranscriptionReadyEvent,
 	CallSessionParticipantLeftEvent,
-	CallRecordingReadyEvent,
+	// CallRecordingReadyEvent,
 	CallSessionStartedEvent,
 } from '@stream-io/node-sdk';
 
@@ -21,11 +21,12 @@ function verifySignatureWithSDK(body: string, signature: string): boolean {
 export async function POST(req: NextRequest) {
 	const signature = req.headers.get('x-signature');
 	const apiKey = req.headers.get('x-api-key');
-	const body = await req.text();
 
 	if (!signature || !apiKey) {
 		return NextResponse.json({ error: 'Missing signature or api key' }, { status: 400 });
 	}
+
+	const body = await req.text();
 
 	if (!verifySignatureWithSDK(body, signature)) {
 		return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
@@ -34,12 +35,12 @@ export async function POST(req: NextRequest) {
 	let payload: unknown;
 	try {
 		payload = JSON.parse(body) as Record<string, unknown>;
-	} catch (e) {
+	} catch {
 		return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
 	}
 
 	const eventType = (payload as Record<string, unknown>)?.type;
-	if (eventType === 'call.session.started') {
+	if (eventType === 'call.session_started') {
 		const event = payload as CallSessionStartedEvent;
 		const meetingId = event.call.custom?.meetingId;
 
@@ -75,7 +76,7 @@ export async function POST(req: NextRequest) {
 		const [existingAgent] = await db
 			.select()
 			.from(agents)
-			.where(eq(agents.userId, existingMeeting.agentId));
+			.where(eq(agents.id, existingMeeting.agentId));
 
 		if (!existingAgent) {
 			return NextResponse.json({ error: 'Agent not found' }, { status: 404 });
@@ -90,9 +91,9 @@ export async function POST(req: NextRequest) {
 		});
 
 		realtimeClient.updateSession({
-			instruction: existingAgent.instructions,
+			instructions: existingAgent.instructions,
 		});
-	} else if (eventType === 'call.session.participant.left') {
+	} else if (eventType === 'call.session_participant_left') {
 		const event = payload as CallSessionParticipantLeftEvent;
 		const meetingId = event.call_cid.split(':')[1];
 
