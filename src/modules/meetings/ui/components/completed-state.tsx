@@ -16,6 +16,7 @@ import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { formatDuration } from '@/lib/utils';
 import { Transcript } from './transcript';
+import { ChatProvider } from './chat-provider';
 
 interface Props {
 	data: MeetingGetOne;
@@ -61,6 +62,9 @@ export const CompletedState = ({ data }: Props) => {
 				</div>
 				<TabsContent value="transcript" className="flex flex-col gap-y-4">
 					<Transcript meetingId={data.id} />
+				</TabsContent>
+				<TabsContent value="chat" className="flex flex-col gap-y-4">
+					<ChatProvider meetingId={data.id} meetingName={data.name} />
 				</TabsContent>
 				<TabsContent value="recording" className="flex flex-col gap-y-4">
 					<div className="rounded-lg border bg-white px-4 py-5">
