@@ -9,7 +9,7 @@ import React from 'react';
 
 const UpgradeView = () => {
 	const trpc = useTRPC();
-	const { data: products } = useSuspenseQuery(trpc.premium.getProducts.queryOptions());
+	// const { data: products } = useSuspenseQuery(trpc.premium.getProducts.queryOptions());
 	// const { data:currentSubscription } = useSuspenseQuery(
 	//     trpc.premium.getCurrentSubscription.queryOptions()
 	// )
