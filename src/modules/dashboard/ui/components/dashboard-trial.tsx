@@ -6,11 +6,11 @@ import { useQuery } from '@tanstack/react-query';
 import { RocketIcon } from 'lucide-react';
 import Link from 'next/link';
 
-import React, { use } from 'react';
+import React from 'react';
 
 const DashboardTrial = () => {
 	const trpc = useTRPC();
-	const { data } = useQuery(trpc.premium.getFreeUsage.queryOptions({}));
+	const { data } = useQuery(trpc.premium.getFreeUsage.queryOptions());
 
 	if (!data) {
 		return null;
