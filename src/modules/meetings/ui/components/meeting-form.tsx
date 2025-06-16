@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { CommandSelect } from '@/components/command-select';
 import GenerateAvatar from '@/components/generate-avatar';
 import NewAgentDialog from '@/modules/agents/ui/components/new-agent-dialog';
+import { useRouter } from 'next/navigation';
 
 interface MeetingFormProp {
 	onSuccess?: (id?: string) => void;
@@ -31,6 +32,7 @@ interface MeetingFormProp {
 const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) => {
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
+	const router = useRouter();
 
 	const [agentSearch, setAgentSearch] = useState('');
 	const [openNewAgentDialog, setOpenNewAgentDialog] = useState(false);
@@ -45,13 +47,14 @@ const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) =>
 		trpc.meetings.create.mutationOptions({
 			onSuccess: async (data) => {
 				await queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
-
-				//TODO - Invalidate free tier usage
+				await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
 				onSuccess?.(data.id);
 			},
 			onError: (error) => {
 				toast.error(error.message);
-				//TODO - Check if error code is "Forbidden", redirect to "/upgrade"
+				if (error.data?.code === 'FORBIDDEN') {
+					router.push('/upgrade');
+				}
 			},
 		})
 	);
@@ -71,7 +74,6 @@ const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) =>
 			},
 			onError: (error) => {
 				toast.error(error.message);
-				//TODO - Check if error code is "Forbidden", redirect to "/upgrade"
 			},
 		})
 	);

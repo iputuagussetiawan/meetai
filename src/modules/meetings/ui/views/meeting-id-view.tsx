@@ -32,9 +32,9 @@ const MeetingIdView = ({ meetingId }: Props) => {
 	const { data } = useSuspenseQuery(trpc.meetings.getOne.queryOptions({ id: meetingId }));
 	const removeMeeting = useMutation(
 		trpc.meetings.remove.mutationOptions({
-			onSuccess: () => {
-				queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
-				//TODO - Invalidate free tier usage
+			onSuccess: async () => {
+				await queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+				await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
 				router.push('/meetings');
 			},
 			onError: (error) => {
