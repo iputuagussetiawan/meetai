@@ -19,6 +19,7 @@ import GenerateAvatar from '@/components/generate-avatar';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface AgentFormProp {
 	onSuccess?: () => void;
@@ -26,6 +27,7 @@ interface AgentFormProp {
 	initialValues?: AgentGetOne;
 }
 const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProp) => {
+	const router = useRouter();
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
 
@@ -38,7 +40,9 @@ const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProp) => {
 			},
 			onError: (error) => {
 				toast.error(error.message);
-				//TODO - Check if error code is "Forbidden", redirect to "/upgrade"
+				if (error.data?.code === 'FORBIDDEN') {
+					router.push('/upgrade');
+				}
 			},
 		})
 	);
@@ -58,7 +62,6 @@ const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProp) => {
 			},
 			onError: (error) => {
 				toast.error(error.message);
-				//TODO - Check if error code is "Forbidden", redirect to "/upgrade"
 			},
 		})
 	);

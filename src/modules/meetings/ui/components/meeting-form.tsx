@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { CommandSelect } from '@/components/command-select';
 import GenerateAvatar from '@/components/generate-avatar';
 import NewAgentDialog from '@/modules/agents/ui/components/new-agent-dialog';
+import { useRouter } from 'next/navigation';
 
 interface MeetingFormProp {
 	onSuccess?: (id?: string) => void;
@@ -29,6 +30,7 @@ interface MeetingFormProp {
 	initialValues?: MeetingGetOne;
 }
 const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) => {
+	const router = useRouter();
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
 
@@ -50,7 +52,9 @@ const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) =>
 			},
 			onError: (error) => {
 				toast.error(error.message);
-				//TODO - Check if error code is "Forbidden", redirect to "/upgrade"
+				if (error.data?.code === 'FORBIDDEN') {
+					router.push('/upgrade');
+				}
 			},
 		})
 	);
