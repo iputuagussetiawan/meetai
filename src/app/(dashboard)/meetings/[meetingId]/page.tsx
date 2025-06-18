@@ -30,7 +30,6 @@ const Page = async ({ params }: Props) => {
 			id: meetingId,
 		})
 	);
-	//TODO - Prefetch meetings.getTranscript
 	return (
 		<HydrationBoundary state={dehydrate(queryClient)}>
 			<Suspense fallback={<MeetingIdViewLoading />}>
