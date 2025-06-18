@@ -12,7 +12,7 @@ import {
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
-import { BotIcon, Star, StarIcon, VideoIcon } from 'lucide-react';
+import { BotIcon, StarIcon, VideoIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -113,10 +113,8 @@ const DashboardSidebar = () => {
 				</SidebarGroup>
 			</SidebarContent>
 			<SidebarFooter className="text-white">
-				<div className="space-y-2">
-					<DashboardTrial />
-					<DashboardUserButton />
-				</div>
+				<DashboardTrial />
+				<DashboardUserButton />
 			</SidebarFooter>
 		</Sidebar>
 	);

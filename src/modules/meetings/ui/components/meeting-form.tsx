@@ -30,6 +30,7 @@ interface MeetingFormProp {
 	initialValues?: MeetingGetOne;
 }
 const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) => {
+	const router = useRouter();
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
 	const router = useRouter();

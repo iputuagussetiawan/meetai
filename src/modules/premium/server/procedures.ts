@@ -1,7 +1,7 @@
-import { eq, count } from 'drizzle-orm';
-import { db } from '@/db';
-import { agents, meetings } from '@/db/schema';
 import { polarClient } from '@/lib/polar';
+import { agents, meetings } from '@/db/schema';
+import { db } from '@/db';
+import { eq, count } from 'drizzle-orm';
 import { createTRPCRouter, protectedProcedure } from '@/trpc/init';
 
 export const premiumRouter = createTRPCRouter({
@@ -9,7 +9,6 @@ export const premiumRouter = createTRPCRouter({
 		const customer = await polarClient.customers.getStateExternal({
 			externalId: ctx.auth.user.id,
 		});
-
 		const subscription = customer.activeSubscriptions[0];
 
 		if (!subscription) {
@@ -37,7 +36,6 @@ export const premiumRouter = createTRPCRouter({
 		});
 
 		const subscription = customer.activeSubscriptions[0];
-
 		if (subscription) {
 			return null;
 		}

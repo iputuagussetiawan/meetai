@@ -44,7 +44,6 @@ export const premiumProcedure = (entity: 'meetings' | 'agents') =>
 		const customer = await polarClient.customers.getStateExternal({
 			externalId: ctx.auth.user.id,
 		});
-
 		const [userMeetings] = await db
 			.select({
 				count: count(meetings.id),
