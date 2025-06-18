@@ -1,8 +1,9 @@
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Separator } from '@radix-ui/react-separator';
 import { cva, VariantProps } from 'class-variance-authority';
-import { Badge, CircleCheckIcon } from 'lucide-react';
+import { CircleCheckIcon } from 'lucide-react';
 import React from 'react';
 
 const pricingCardVariants = cva('rounded-lg p-4 py-6 w-full', {

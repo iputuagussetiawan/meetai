@@ -5,8 +5,9 @@ import LoadingState from '@/components/loading-state';
 import ErrorState from '@/components/error-state';
 
 import React from 'react';
-import { getQueryClient } from '@/trpc/server';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { authClient } from '@/lib/auth-client';
+import PricingCard from '../components/pricing-card';
 
 const UpgradeView = () => {
 	const trpc = useTRPC();
@@ -22,10 +23,50 @@ const UpgradeView = () => {
 					{' '}
 					You are on{' '}
 					<span className="font-semibold text-primary">
-						{/* {currentSubscription?.name??"free"} */}
+						{currentSubscription?.name ?? 'free'}
 					</span>{' '}
 					plan
 				</h5>
+				<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+					{products?.map((product) => {
+						const isCurrentProduct = product.id === currentSubscription?.id;
+						const isPremium = !!currentSubscription;
+						let buttonText = 'Upgrade';
+
+						let onClick = () => authClient.checkout({ products: [product.id] });
+
+						if (isCurrentProduct) {
+							buttonText = 'Manage';
+							onClick = () => authClient.customer.portal();
+						} else if (isPremium) {
+							buttonText = 'Change Plan';
+							onClick = () => authClient.customer.portal();
+						}
+
+						return (
+							<PricingCard
+								key={product.id}
+								buttonText={buttonText}
+								onClick={onClick}
+								variant={
+									product.metadata.variant === 'highlight'
+										? 'highlight'
+										: 'default'
+								}
+								title={product.name}
+								price={
+									product.prices[0].amountType === 'fixed'
+										? product.prices[0].priceAmount / 100
+										: 0
+								}
+								description={product.description}
+								priceSuffix={`/${product.prices[0].recurringInterval}`}
+								features={product.benefits.map((benefit) => benefit.description)}
+								badge={product.metadata.badge as string | null}
+							/>
+						);
+					})}
+				</div>
 			</div>
 		</div>
 	);
