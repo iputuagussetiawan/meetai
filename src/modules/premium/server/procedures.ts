@@ -30,8 +30,8 @@ export const premiumRouter = createTRPCRouter({
 			.where(eq(agents.userId, ctx.auth.user.id));
 
 		return {
-			meetings: userMeetings.count,
-			agents: userAgents.count,
+			meetingCount: userMeetings.count,
+			agentCount: userAgents.count,
 		};
 	}),
 });
