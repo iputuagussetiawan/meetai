@@ -45,8 +45,7 @@ const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) =>
 		trpc.meetings.create.mutationOptions({
 			onSuccess: async (data) => {
 				await queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
-
-				//TODO - Invalidate free tier usage
+				await queryClient.invalidateQueries(trpc.premium.getFreeUsage.queryOptions());
 				onSuccess?.(data.id);
 			},
 			onError: (error) => {
