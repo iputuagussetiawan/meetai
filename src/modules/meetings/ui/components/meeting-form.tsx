@@ -33,7 +33,6 @@ const MeetingForm = ({ onSuccess, onCancel, initialValues }: MeetingFormProp) =>
 	const router = useRouter();
 	const trpc = useTRPC();
 	const queryClient = useQueryClient();
-	const router = useRouter();
 
 	const [agentSearch, setAgentSearch] = useState('');
 	const [openNewAgentDialog, setOpenNewAgentDialog] = useState(false);
