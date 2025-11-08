@@ -1,6 +1,6 @@
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import type { Chanel as StreamChanel } from 'stream-chat';
+import type { Channel as StreamChanel } from 'stream-chat';
 import {
 	useCreateChatClient,
 	Chat,
