@@ -70,7 +70,7 @@ const DashboardUserButton = () => {
 						<DrawerDescription>{data.user.email}</DrawerDescription>
 					</DrawerHeader>
 					<DrawerFooter>
-						<Button variant="outline" onClick={() => {}}>
+						<Button variant="outline" onClick={() => authClient.customer.portal()}>
 							<CreditCardIcon className="size-4 text-black" />
 							<span>Billing</span>
 						</Button>
@@ -82,53 +82,6 @@ const DashboardUserButton = () => {
 					</DrawerFooter>
 				</DrawerContent>
 			</Drawer>
-			// <Drawer>
-			//   <DrawerTrigger
-			//     asChild
-			//     className="rounded-lg gap-x-2 border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden"
-			//   >
-			//     {data.user.image ? (
-			//       <Avatar>
-			//         <AvatarImage src={data.user.image} />
-			//         <AvatarFallback>CN</AvatarFallback>
-			//       </Avatar>
-			//     ) : (
-			//       <GenerateAvatar
-			//         seed={data.user.name}
-			//         variant="initials"
-			//         className="size-9 mr-3"
-			//       />
-			//     )}
-			//     <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-0">
-			//       <p className="text-sm truncate w-full">{data.user.name}</p>
-			//       <p className="text-xs truncate w-full">{data.user.email}</p>
-			//     </div>
-			//     <ChevronDownIcon className="size-4 shrink-0" />
-			//   </DrawerTrigger>
-			//   <DrawerContent>
-			//     <DrawerHeader>
-			//       <DrawerTitle>{data.user.name}</DrawerTitle>
-			//       <DrawerDescription>{data.user.email}</DrawerDescription>
-			//     </DrawerHeader>
-			//     <DrawerFooter>
-			//       <Button
-			//         variant="outline"
-			//         onClick={()=>{}}
-			//       >
-			//         <CreditCardIcon className="size-4 text-black" />
-			//         <span>Billing</span>
-			//       </Button>
-
-			//       <Button
-			//         variant="outline"
-			//         onClick={onLogout}
-			//       >
-			//         <LogOutIcon className="size-4 text-black" />
-			//         <span>Logout</span>
-			//       </Button>
-			//     </DrawerFooter>
-			//   </DrawerContent>
-			// </Drawer>
 		);
 	}
 
@@ -163,7 +116,10 @@ const DashboardUserButton = () => {
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem className="flex cursor-pointer items-center justify-between">
+				<DropdownMenuItem
+					onClick={() => authClient.customer.portal()}
+					className="flex cursor-pointer items-center justify-between"
+				>
 					Billing
 					<CreditCardIcon className="size-4" />
 				</DropdownMenuItem>
